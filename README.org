@@ -1,0 +1,9 @@
+* How to use
+
+Clone this repository and start editing the [[file:thesis.tex][thesis.tex]] file.
+
+If you use externalize your TikZ figures, use the [[file:makefile][makefile]] to build via
+
+#+begin_src bash
+make thesis-force
+#+end_src
