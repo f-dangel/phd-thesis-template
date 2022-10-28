@@ -1,0 +1,174 @@
+\blindtext
+
+\marginnote{%
+  The arrangement of partial derivatives in the generalizations of Jacobian and
+  Hessian implies the following chain rule generalization for second-order
+  derivatives:
+  \begin{theorem}[\textbf{Chain rule for the generalized
+      Hessian}]\label{hbp::the:chainRuleHessians}
+    Let $\vb: \mathbb{R}^n \to \mathbb{R}^m$ and $\vc: \mathbb{R}^m \to
+    \mathbb{R}^p$ be twice differentiable and $\vd = \vc \circ \vb: \mathbb{R}^n
+    \to \mathbb{R}^p, \va \mapsto \vd(\va) = \vc(\vb(\va))$. The relation
+    between the Hessian of $\vd$ and the Jacobians and Hessians of the
+    constituents $\vc$ and $\vb$ is given by
+    \begin{align}
+      \label{hbp::equ:chainRuleHessians}
+      \begin{split}
+        &\gradsquared{\va}
+          \vd(\va)
+        \\
+        &\,\,=
+          \left[
+          \mI_p \otimes \jac_{\va} \vb(\va)
+          \right]^\top
+          \left[
+          \gradsquared{\vb} \vc(\vb)
+          \right]
+          \jac_{\va} \vb(\va)
+        \\
+        &\,\,\phantom{= }
+          +
+          \left[
+          \jac_{\vb} \vc(\vb) \otimes \mI_n
+          \right]
+          \gradsquared{\va} \vb(\va)
+      \end{split}
+    \end{align}
+  \end{theorem}}%
+
+\section{Background topic 1}\label{sec:background-1::topic-1}
+
+\begin{definition}[\textbf{Hessian}]\label{def:background::Hessian}
+  Let $b: \sR^D \to \sR; \va \mapsto b(\va)$ be a differentiable
+  vector-to-scalar function. The Hessian $\gradsquared{\va} b \in \sR^{D\times
+    D}$ of $b$ \wrt $\va$ is a symmetric matrix containing the second-order
+  partial derivatives
+  \begin{align}
+    \label{eq:background::HessianVectorToScalar}
+    \gradsquared{\va}b = \frac{\partial^2 b}{\partial \va \partial \va^{\top}}
+    \qquad
+    \text{with}
+    \qquad
+    [\gradsquared{\va}b]_{i,j} = \frac{\partial^2 b}{\partial \eva_i \partial \eva_j}
+  \end{align}
+  The Hessian will often be denoted by $\mH$. \Eg $\mH_{\pdata}(\vtheta) :=
+  \gradsquared{\vtheta} \gL_{\pdata}(\vtheta)$ for the Hessian of the population
+  risk, and $\mH_{\sD}(\vtheta) := \gradsquared{\vtheta} \gL_{\sD}(\vtheta)$ for
+  the Hessian of the empirical risk on a dataset $\sD$ (with $\sD = \Dtrain,\sB$
+  for the train loss and mini-batch Hessian).
+\end{definition}
+
+\section{Background topic 2}\label{sec:background-1::topic-2}
+
+\begin{example}[\textbf{Least squares regression \& square
+    loss}]\label{ex:background::Regression}
+  Regression associates features in $\sX = \sR^M$ with targets in $\sY =
+  \sR^C$. A prediction in $\sF = \sR^{C}$ compares to its ground truth via the
+  mean squared error\sidenote{%
+    There exist different conventions for the normalization factor. This text
+    adapts the implementation of
+    \inlinecode{\href{https://pytorch.org/docs/1.11/generated/torch.nn.MSELoss.html\#torch.nn.MSELoss}{MSELoss}}
+    (with \inlinecode{reduction="mean"} mode) in \pytorch for consistency with
+    the code presented in later chapters. Normalizing by $\nicefrac{1}{C}$ is
+    also close to what the name, mean squared error, suggests.}
+  \begin{align}\label{eq:background::squareLoss}
+    \ell(\vf, \vy)
+    =
+    \frac{1}{C} \sum_{c=1}^C (\evy_c - \evf_c)^2
+    =
+    \frac{1}{C} \lVert \vy - \vf  \rVert_{2}^{2}
+  \end{align}
+\end{example}
+
+\blindtext
+
+\marginnote[*-6]{%
+  \begin{remark}[\textbf{The log-probability's $\vtheta$-gradient vanishes in
+      expectation}]\label{note:background::KLTaylorFirstOrderTermVanishes}
+    \hspace{-\baselineskip}
+    \begin{align*}
+      -\int_{\sOmega}
+      & p_{\vtheta}(\vz)
+        \grad{\vtheta} \log p_{\vtheta}(\vz)
+        \,\diff\vz
+      \\
+      &=
+        -\int_{\sOmega} p_{\vtheta}(\vz)
+        \frac{\grad{\vtheta}p_{\vtheta}(\vz)}{p_{\vtheta}(\vz)}
+        \,\diff\vz
+      \\
+      &=
+        - \grad{\vtheta}
+        \left(
+        \int_{\sOmega}
+        p_{\vtheta}(\vz)
+        \,\diff\vz
+        \right)
+      \\
+      &=
+        -\grad{\vtheta} 1 = 0
+    \end{align*}
+  \end{remark}
+}
+%
+
+\blindtext
+
+\begin{table}[!t]
+  \caption{\textbf{Forward pass for common modules used in feedforward
+      networks.} Input and output are denoted $\vx, \vz$ rather than $\vz^{(l)},
+    \vz^{(l+1)}$ to avoid clutter. $\mI$ is the identity matrix. Bold upper-case
+    symbols ($\mW, \mX, \mZ, \dots$) denote matrices and bold upper-case sans
+    serif symbols ($\tW, \tX, \tZ, \dots$) denote tensors.}
+  \label{tab:background::forward}
+  \centering
+  \begin{footnotesize}
+    \begin{tabular}{ll}
+      \toprule
+      \textbf{OPERATION} & \textbf{FORWARD}
+      \\
+      \midrule
+      % matrix-vector multiplication
+      Matrix-vector multiplication & $\vz(\vx, \mW) = \mW\vx$
+      \\
+      % matrix-matrix multiplication
+      Matrix-matrix multiplication & $\mZ(\mX, \mW) = \mW\mX$
+      \\
+      % addition
+      Addition & $\vz(\vx, \vb) = \vx + \vb$
+      \\
+      % elementwise activation
+      Elementwise activation & $\vz(\vx) = \vphi(\vx)$\,,\ \text{s.t.} $z_i(\vx) = \phi(x_i)$
+      \\
+      \midrule
+      % residual unit/skip-connection
+      Skip-connection & $\vz(\vx, \vtheta) = \vx + \vs(\vx, \vtheta)$
+      \\
+      \midrule
+      % reshape/view operation
+      Reshape/view & $\tZ(\tX)= \mathrm{reshape}(\tX)$
+      \\
+      % extraction operator
+      Index select/map $\pi$ & $\vz(\vx) = \mPi \vx\, ,$ $\emPi_{j,\pi(j)} = 1\,, $
+      \\
+      % convolution
+      Convolution & $\tZ(\tX, \tW) = \tX \star \tW$\,,
+      \\
+                         & $\mZ(\mW, \llbracket\tX\rrbracket) = \mW \llbracket \tX \rrbracket$\,,
+      \\
+      \midrule
+      % square loss
+      Square loss & $\ell(\vf, \vy) = \nicefrac{1}{C} (\vy-\vf)^\top (\vy - \vf)$ \\
+      % cross-entropy loss
+      Softmax cross-entropy & $\ell(\vf, y) = - \onehot(y)^\top \log\left[\vp(\vf)\right]$
+      \\
+      \bottomrule
+    \end{tabular}
+  \end{footnotesize}
+\end{table}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End:

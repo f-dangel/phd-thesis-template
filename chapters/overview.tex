@@ -1,0 +1,88 @@
+% ===================================================================
+% THESIS OVERVIEW
+% ===================================================================
+\section{Introduction}\label{sec:introduction}
+
+\Blindtext
+
+\begin{lstlisting}[ language=Python, caption={\textbf{Canonical deep learning
+training loop.} After setting up the data, model, loss function, and optimizer,
+iterate over batches: in each iteration, compute the mini-batch loss in a forward
+pass, and its gradient with a backward pass. Then use the gradient as learning
+signal to update the model parameters.}, label=alg:background::trainingLoop,
+captionpos=t,
+linebackgroundcolor={\ifnum\value{lstnumber}=15\color{secondcolor!50}\fi\ifnum\value{lstnumber}=16\color{secondcolor!50}\fi}]
+% dataset = ...    # Learning task examples (@\label{line:background::dataset}@)
+
+model = ...      # Practitioner's choice (@\label{line:background::model}@)
+loss_func = ...  # Practitioner's choice (@\label{line:background::lossFunc}@)
+
+optimizer = ...  # First-order method
+
+while not_converged: # Standard training loop
+features, targets = dataset.next_minibatch()
+
+# Forward pass: Compute the loss
+predictions = model(features)
+loss = loss_func(predictions, targets)
+
+# Backward pass: Compute the gradient
+loss.backward() (@\label{line:background::Backward}@)
+
+# Update model parameters using the gradient
+optimizer.step()
+optimizer.zero_grad()
+\end{lstlisting}
+
+Reference to \Cref{line:background::Backward}.
+
+\section{Outline}
+\Blindtext
+
+\textbf{You have to run one the script \texttt{build-force.sh} to generate the
+  following externalized TikZ figure:}
+
+\begin{figure}[!h]
+  \centering
+  \tikzexternalenable
+  % \tikzset{external/remake next=true} % force-recompile next figure
+  \begin{tikzpicture}
+    \node[circle, fill=secondcolor!50!white] {Test TikZ picture};
+  \end{tikzpicture}
+  \tikzexternaldisable
+  \caption{\textbf{A TikZ figure:} This figure checks if externalization works.}
+\end{figure}
+
+\begin{disclaimer}
+  \Cref{chap:paper-1} is based on the peer-reviewed
+  conference publication with the following co-author contributions:
+
+  \fullcite{dangel2020backpack} \cite{dangel2020backpack}
+
+  \vspace{-1.75ex}
+
+  \begin{center}
+    \begin{tabular}[!h]{lrrrr}
+      & \textbf{Ideas} & \textbf{Experiments} & \textbf{Analysis} & \textbf{Writing}
+      \\
+      \textbf{F.\,Dangel} & 33\,\% & 55\,\% & 45\,\% & 35\,\%
+      \\
+      F.\,Kunstner & 33\,\%& 45\,\% & 45\,\% & 45\,\%
+      \\
+      P.\,Hennig & 33\,\% & 0\,\% & 10\,\% & 20\,\%
+    \end{tabular}
+  \end{center}
+\end{disclaimer}
+
+\marginnote{%
+  \Cref{chap:paper-1}: \backpack: an efficient framework built on top of
+\PyTorch that extends the backpropagation algorithm.
+  \begin{center} \vspace{-5ex}
+\includegraphics[height=0.8\linewidth]{example-image-a}
+\href{https://github.com/f-dangel/backpack}{\texttt{github.com/f-dangel/backpack}}
+  \end{center}} %
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End:
