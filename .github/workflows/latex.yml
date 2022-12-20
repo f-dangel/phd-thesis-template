@@ -20,3 +20,8 @@ jobs:
           working_directory: .
           root_file: thesis.tex
           latexmk_shell_escape: true
+      - name: Upload thesis as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: thesis
+          path: thesis.pdf
