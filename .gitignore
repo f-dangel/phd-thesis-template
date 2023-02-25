@@ -285,6 +285,7 @@ TSWLatexianTemp*
 
 # pdf
 **.pdf
+!thesis.pdf
 
 # Python IDE files
 .

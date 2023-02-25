@@ -1,3 +1,7 @@
+This repository contains a template for my PhD thesis at the University of Tuebingen.
+
+The [[file:thesis.pdf][template]] demonstrates the most important features and looks. You can find a full thesis example [[https://github.com/f-dangel/phd-thesis][here]].
+
 * How to use
 
 Clone this repository and start editing the [[file:thesis.tex][thesis.tex]] file.
